@@ -119,6 +119,9 @@ class TagContainerView: UIView, UICollectionViewDataSource, UICollectionViewDele
         constraints += [tagViewHeightConstraint]
         
         self.addConstraints(constraints)
+        
+        let recognizer = UILongPressGestureRecognizer(target: self, action: Selector("deleteTag:"))
+        tagView.addGestureRecognizer(recognizer)
     }
     
     func numberOfSectionsInCollectionView(collectionView: UICollectionView) -> Int {
@@ -145,6 +148,15 @@ class TagContainerView: UIView, UICollectionViewDataSource, UICollectionViewDele
         delegate?.tagViewDidSwitch()
     }
     
+    func deleteTag(sender: UILongPressGestureRecognizer) {
+        if sender.state == .Began {
+            let indexPath = tagView.indexPathForItemAtPoint(sender.locationInView(tagView))
+            if let indexPath = indexPath {
+                delegate?.didDeleteCellAtIndexPath(indexPath)
+            }
+        }
+    }
+    
     /*
     // Only override drawRect: if you perform custom drawing.
     // An empty implementation adversely affects performance during animation.
@@ -158,5 +170,7 @@ class TagContainerView: UIView, UICollectionViewDataSource, UICollectionViewDele
 protocol TagContainerViewDelegate: class {
     
     func tagViewDidSwitch()
+    
+    func didDeleteCellAtIndexPath(indexPath: NSIndexPath)
     
 }

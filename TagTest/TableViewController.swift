@@ -55,6 +55,10 @@ class TableViewController: UITableViewController, TagContainerViewDelegate {
         UIView.setAnimationsEnabled(true)
     }
     
+    func didDeleteCellAtIndexPath(indexPath: NSIndexPath) {
+        print(indexPath)
+    }
+    
     /*
     // MARK: - Navigation
 
