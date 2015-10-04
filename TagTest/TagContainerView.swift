@@ -81,7 +81,7 @@ class TagContainerView: UIView, UICollectionViewDataSource, UICollectionViewDele
         tagView = UICollectionView(frame: CGRectZero, collectionViewLayout: layout)
         tagView.dataSource = self
         tagView.delegate = self
-        tagView.registerClass(TagCell.classForCoder(), forCellWithReuseIdentifier: "identifier")
+        tagView.registerClass(TagView.classForCoder(), forCellWithReuseIdentifier: "identifier")
         tagView.backgroundColor = UIColor.whiteColor()
         tagView.scrollEnabled = false
         
@@ -137,7 +137,7 @@ class TagContainerView: UIView, UICollectionViewDataSource, UICollectionViewDele
     }
 
     func collectionView(collectionView: UICollectionView, cellForItemAtIndexPath indexPath: NSIndexPath) -> UICollectionViewCell {
-        let cell = collectionView.dequeueReusableCellWithReuseIdentifier("identifier", forIndexPath: indexPath) as! TagCell
+        let cell = collectionView.dequeueReusableCellWithReuseIdentifier("identifier", forIndexPath: indexPath) as! TagView
         cell.backgroundColor = UIColor.blackColor()
         cell.label.text = tagData![indexPath.item]
         return cell
