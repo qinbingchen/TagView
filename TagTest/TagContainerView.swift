@@ -148,6 +148,8 @@ class TagContainerView: UIView, UICollectionViewDataSource, UICollectionViewDele
         tagView.addGestureRecognizer(recognizer)
     }
     
+    // MARK: - Collection View Data Source
+    
     func numberOfSectionsInCollectionView(collectionView: UICollectionView) -> Int {
         return 1
     }
@@ -166,6 +168,19 @@ class TagContainerView: UIView, UICollectionViewDataSource, UICollectionViewDele
         cell.label.text = tagData![indexPath.item]
         return cell
     }
+    
+    // MARK: - Collection View Delegate
+    
+    func collectionView(collectionView: UICollectionView, didSelectItemAtIndexPath indexPath: NSIndexPath) {
+        delegate?.didSelectItemAtIndex?(indexPath)
+    }
+    
+    
+    func collectionView(collectionView: UICollectionView, didDeselectItemAtIndexPath indexPath: NSIndexPath) {
+        delegate?.didDeselectItemAtIndex?(indexPath)
+    }
+    
+    // MARK: - Event Handler
     
     func switchTagView(sender: UIButton) {
         showAllTags = !showAllTags
@@ -193,10 +208,16 @@ class TagContainerView: UIView, UICollectionViewDataSource, UICollectionViewDele
 
 // MARK: - Delegate Protocol
 
-protocol TagContainerViewDelegate: class {
+@objc protocol TagContainerViewDelegate: class {
     
     func tagViewDidSwitch()
     
     func didDeleteCellAtIndexPath(indexPath: NSIndexPath)
+    
+    // MARK: - Collection View Delegate
+    
+    optional func didSelectItemAtIndex(indexPath: NSIndexPath)
+    
+    optional func didDeselectItemAtIndex(indexPath: NSIndexPath)
     
 }
