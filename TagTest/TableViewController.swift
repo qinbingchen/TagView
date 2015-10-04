@@ -30,7 +30,7 @@ class TableViewController: UITableViewController, TagContainerViewDelegate {
     // MARK: - Table view data source
 
     override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 1
+        return 2
     }
 
     override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
@@ -38,7 +38,9 @@ class TableViewController: UITableViewController, TagContainerViewDelegate {
         cell.tagContailerView.delegate = self
         cell.tagContailerView.tagData = ["PHP", "Java", "C++", "Swift", "Haskel", "Prolog", "PHP", "Java", "C++", "Swift", "Haskel", "PHP", "Java", "C++", "Swift", "Haskel", "Prolog", "PHP", "Java", "C++", "Swift", "Haskel"]
         
-        
+        if indexPath.row % 2 == 1 {
+            cell.tagContailerView.showSwitchButton = false
+        }
         // Configure the cell...
 
         return cell

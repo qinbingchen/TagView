@@ -10,6 +10,7 @@ import UIKit
 
 class TagContainerView: UIView, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {
 
+    // MARK: - Constants
     static let tagCellHeight: CGFloat = 30.0
     static let tagCellPadding: CGFloat = 8.0
     static let tagViewInteritemSpacingSpacing: CGFloat = 8.0
@@ -18,13 +19,18 @@ class TagContainerView: UIView, UICollectionViewDataSource, UICollectionViewDele
     static let maxCollapsedTagViewHeight: CGFloat = 106.0
     static let switchButtonHeight: CGFloat = 30.0
     
+    // MARK: - Delegate
     weak var delegate: TagContainerViewDelegate?
     
+    // MARK: - Views
     private var tagView: UICollectionView!
     private var switchButton: UIButton!
     
-    var tagViewHeightConstraint: NSLayoutConstraint!
-    var switchButtonHeightConstraint: NSLayoutConstraint!
+    // MARK: View Constraints
+    private var tagViewHeightConstraint: NSLayoutConstraint!
+    private var switchButtonHeightConstraint: NSLayoutConstraint!
+    
+    // MARK: - Configurations
     
     var showAllTags = false {
         didSet {
@@ -38,6 +44,24 @@ class TagContainerView: UIView, UICollectionViewDataSource, UICollectionViewDele
             }
         }
     }
+    
+    /// Indicates wether shows the switch button or not. If false, it will hide the swith button and show all tags by default
+    var showSwitchButton = true {
+        didSet {
+            switchButton.hidden = !showSwitchButton
+            if showSwitchButton {
+                switchButtonHeightConstraint.constant = TagContainerView.switchButtonHeight
+            } else {
+                switchButtonHeightConstraint.constant = 0.0
+            }
+            //show all tags
+            if !showSwitchButton {
+                showAllTags = true
+            }
+        }
+    }
+    
+    // MARK: - Data Source
     
     var tagData: [String]? {
         didSet {
@@ -166,6 +190,8 @@ class TagContainerView: UIView, UICollectionViewDataSource, UICollectionViewDele
     */
 
 }
+
+// MARK: - Delegate Protocol
 
 protocol TagContainerViewDelegate: class {
     
