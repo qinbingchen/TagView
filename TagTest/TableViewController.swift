@@ -13,18 +13,7 @@ class TableViewController: UITableViewController, TagContainerViewDelegate {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        // Uncomment the following line to preserve selection between presentations
-        // self.clearsSelectionOnViewWillAppear = false
-
-        // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
-        // self.navigationItem.rightBarButtonItem = self.editButtonItem()
-        
         self.tableView.estimatedRowHeight = 200.0
-    }
-    
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
     }
 
     // MARK: - Table view data source
@@ -41,7 +30,6 @@ class TableViewController: UITableViewController, TagContainerViewDelegate {
         if indexPath.row % 2 == 1 {
             cell.tagContailerView.showSwitchButton = false
         }
-        // Configure the cell...
 
         return cell
     }
@@ -50,25 +38,9 @@ class TableViewController: UITableViewController, TagContainerViewDelegate {
         return UITableViewAutomaticDimension
     }
     
-    func tagViewDidSwitch() {
-        UIView.setAnimationsEnabled(false)
-        tableView.beginUpdates()
-        tableView.endUpdates()
-        UIView.setAnimationsEnabled(true)
-    }
+    // MARK: - Tag Container View Delegate
     
-    func didDeleteCellAtIndexPath(indexPath: NSIndexPath) {
-        print(indexPath)
+    func tagContainerView(tagContainerView: TagContainerView, didSelectItemAtIndex indexPath: NSIndexPath) {
+        print("didSelectItemAtIndex: \(indexPath)")
     }
-    
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
-        // Get the new view controller using segue.destinationViewController.
-        // Pass the selected object to the new view controller.
-    }
-    */
-
 }

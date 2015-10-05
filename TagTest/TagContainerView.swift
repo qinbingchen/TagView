@@ -172,37 +172,27 @@ class TagContainerView: UIView, UICollectionViewDataSource, UICollectionViewDele
     // MARK: - Collection View Delegate
     
     func collectionView(collectionView: UICollectionView, didSelectItemAtIndexPath indexPath: NSIndexPath) {
-        delegate?.didSelectItemAtIndex?(indexPath)
+        delegate?.tagContainerView?(self, didSelectItemAtIndex: indexPath)
     }
     
-    
     func collectionView(collectionView: UICollectionView, didDeselectItemAtIndexPath indexPath: NSIndexPath) {
-        delegate?.didDeselectItemAtIndex?(indexPath)
+        delegate?.tagContainerView?(self, didDeselectItemAtIndex: indexPath)
     }
     
     // MARK: - Event Handler
     
     func switchTagView(sender: UIButton) {
         showAllTags = !showAllTags
-        delegate?.tagViewDidSwitch()
     }
     
     func deleteTag(sender: UILongPressGestureRecognizer) {
         if sender.state == .Began {
             let indexPath = tagView.indexPathForItemAtPoint(sender.locationInView(tagView))
             if let indexPath = indexPath {
-                delegate?.didDeleteCellAtIndexPath(indexPath)
+                delegate?.tagContainerView?(self, didDeleteCellAtIndexPath: indexPath)
             }
         }
     }
-    
-    /*
-    // Only override drawRect: if you perform custom drawing.
-    // An empty implementation adversely affects performance during animation.
-    override func drawRect(rect: CGRect) {
-        // Drawing code
-    }
-    */
 
 }
 
@@ -210,14 +200,12 @@ class TagContainerView: UIView, UICollectionViewDataSource, UICollectionViewDele
 
 @objc protocol TagContainerViewDelegate: class {
     
-    func tagViewDidSwitch()
+    optional func tagContainerView(tagContainerView: TagContainerView, didDeleteCellAtIndexPath indexPath: NSIndexPath)
     
-    func didDeleteCellAtIndexPath(indexPath: NSIndexPath)
+    // MARK: - Item Selection Delegate
     
-    // MARK: - Collection View Delegate
+    optional func tagContainerView(tagContainerView: TagContainerView, didSelectItemAtIndex indexPath: NSIndexPath)
     
-    optional func didSelectItemAtIndex(indexPath: NSIndexPath)
-    
-    optional func didDeselectItemAtIndex(indexPath: NSIndexPath)
+    optional func tagContainerView(tagContainerView: TagContainerView, didDeselectItemAtIndex indexPath: NSIndexPath)
     
 }
