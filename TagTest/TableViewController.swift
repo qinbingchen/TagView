@@ -42,5 +42,9 @@ class TableViewController: UITableViewController, TagContainerViewDelegate {
     
     func tagContainerView(tagContainerView: TagContainerView, didSelectItemAtIndex indexPath: NSIndexPath) {
         print("didSelectItemAtIndex: \(indexPath)")
+        
+        if indexPath.row == (tagContainerView.tagData!.count - 1) { //Click the last tag, namely AddTagButton
+            tagContainerView.tagData?.insert("new \(tagContainerView.tagData!.count)", atIndex: 0)
+        }
     }
 }
