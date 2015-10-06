@@ -15,7 +15,7 @@
 		25A7406D1BB17956008E2134 /* TagTestUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25A7406C1BB17956008E2134 /* TagTestUITests.swift */; };
 		25A7407B1BB1799A008E2134 /* TagContainerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25A7407A1BB1799A008E2134 /* TagContainerView.swift */; settings = {ASSET_TAGS = (); }; };
 		25A7407F1BB18038008E2134 /* UICollectionViewLeftAlignedLayout.m in Sources */ = {isa = PBXBuildFile; fileRef = 25A7407E1BB18038008E2134 /* UICollectionViewLeftAlignedLayout.m */; settings = {ASSET_TAGS = (); }; };
-		25E7153C1BB26F2600D14421 /* TagCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25E7153B1BB26F2600D14421 /* TagCell.swift */; settings = {ASSET_TAGS = (); }; };
+		25E7153C1BB26F2600D14421 /* TagView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25E7153B1BB26F2600D14421 /* TagView.swift */; settings = {ASSET_TAGS = (); }; };
 		25E7153E1BB2793800D14421 /* TableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25E7153D1BB2793800D14421 /* TableViewController.swift */; settings = {ASSET_TAGS = (); }; };
 		25E715401BB279A700D14421 /* TableViewTagCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25E7153F1BB279A700D14421 /* TableViewTagCell.swift */; settings = {ASSET_TAGS = (); }; };
 /* End PBXBuildFile section */
@@ -54,7 +54,7 @@
 		25A7407C1BB18037008E2134 /* TagTest-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "TagTest-Bridging-Header.h"; sourceTree = "<group>"; };
 		25A7407D1BB18038008E2134 /* UICollectionViewLeftAlignedLayout.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UICollectionViewLeftAlignedLayout.h; sourceTree = "<group>"; };
 		25A7407E1BB18038008E2134 /* UICollectionViewLeftAlignedLayout.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UICollectionViewLeftAlignedLayout.m; sourceTree = "<group>"; };
-		25E7153B1BB26F2600D14421 /* TagCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TagCell.swift; sourceTree = "<group>"; };
+		25E7153B1BB26F2600D14421 /* TagView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TagView.swift; sourceTree = "<group>"; };
 		25E7153D1BB2793800D14421 /* TableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TableViewController.swift; sourceTree = "<group>"; };
 		25E7153F1BB279A700D14421 /* TableViewTagCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TableViewTagCell.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -87,7 +87,7 @@
 		25A740401BB17956008E2134 = {
 			isa = PBXGroup;
 			children = (
-				25A7404B1BB17956008E2134 /* TagTest */,
+				25A7404B1BB17956008E2134 /* TagDemo */,
 				25A740601BB17956008E2134 /* TagTestTests */,
 				25A7406B1BB17956008E2134 /* TagTestUITests */,
 				25A7404A1BB17956008E2134 /* Products */,
@@ -104,22 +104,16 @@
 			name = Products;
 			sourceTree = "<group>";
 		};
-		25A7404B1BB17956008E2134 /* TagTest */ = {
+		25A7404B1BB17956008E2134 /* TagDemo */ = {
 			isa = PBXGroup;
 			children = (
-				25A7404C1BB17956008E2134 /* AppDelegate.swift */,
+				BD839F841BC0E119001F5FF6 /* Tag */,
 				25E7153D1BB2793800D14421 /* TableViewController.swift */,
 				25E7153F1BB279A700D14421 /* TableViewTagCell.swift */,
-				25A7407A1BB1799A008E2134 /* TagContainerView.swift */,
-				25E7153B1BB26F2600D14421 /* TagCell.swift */,
-				25A7407D1BB18038008E2134 /* UICollectionViewLeftAlignedLayout.h */,
-				25A7407E1BB18038008E2134 /* UICollectionViewLeftAlignedLayout.m */,
-				25A7407C1BB18037008E2134 /* TagTest-Bridging-Header.h */,
 				25A740501BB17956008E2134 /* Main.storyboard */,
-				25A740531BB17956008E2134 /* Assets.xcassets */,
-				25A740551BB17956008E2134 /* LaunchScreen.storyboard */,
-				25A740581BB17956008E2134 /* Info.plist */,
+				BD839F851BC0E144001F5FF6 /* Supporting Files */,
 			);
+			name = TagDemo;
 			path = TagTest;
 			sourceTree = "<group>";
 		};
@@ -139,6 +133,29 @@
 				25A7406E1BB17956008E2134 /* Info.plist */,
 			);
 			path = TagTestUITests;
+			sourceTree = "<group>";
+		};
+		BD839F841BC0E119001F5FF6 /* Tag */ = {
+			isa = PBXGroup;
+			children = (
+				25A7407A1BB1799A008E2134 /* TagContainerView.swift */,
+				25E7153B1BB26F2600D14421 /* TagView.swift */,
+			);
+			name = Tag;
+			sourceTree = "<group>";
+		};
+		BD839F851BC0E144001F5FF6 /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				25A7404C1BB17956008E2134 /* AppDelegate.swift */,
+				25A740531BB17956008E2134 /* Assets.xcassets */,
+				25A740551BB17956008E2134 /* LaunchScreen.storyboard */,
+				25A740581BB17956008E2134 /* Info.plist */,
+				25A7407D1BB18038008E2134 /* UICollectionViewLeftAlignedLayout.h */,
+				25A7407E1BB18038008E2134 /* UICollectionViewLeftAlignedLayout.m */,
+				25A7407C1BB18037008E2134 /* TagTest-Bridging-Header.h */,
+			);
+			name = "Supporting Files";
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -274,7 +291,7 @@
 			files = (
 				25A7407F1BB18038008E2134 /* UICollectionViewLeftAlignedLayout.m in Sources */,
 				25E7153E1BB2793800D14421 /* TableViewController.swift in Sources */,
-				25E7153C1BB26F2600D14421 /* TagCell.swift in Sources */,
+				25E7153C1BB26F2600D14421 /* TagView.swift in Sources */,
 				25A7404D1BB17956008E2134 /* AppDelegate.swift in Sources */,
 				25E715401BB279A700D14421 /* TableViewTagCell.swift in Sources */,
 				25A7407B1BB1799A008E2134 /* TagContainerView.swift in Sources */,

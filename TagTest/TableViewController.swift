@@ -13,24 +13,13 @@ class TableViewController: UITableViewController, TagContainerViewDelegate {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        // Uncomment the following line to preserve selection between presentations
-        // self.clearsSelectionOnViewWillAppear = false
-
-        // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
-        // self.navigationItem.rightBarButtonItem = self.editButtonItem()
-        
         self.tableView.estimatedRowHeight = 200.0
-    }
-    
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
     }
 
     // MARK: - Table view data source
 
     override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 1
+        return 2
     }
 
     override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
@@ -38,8 +27,9 @@ class TableViewController: UITableViewController, TagContainerViewDelegate {
         cell.tagContailerView.delegate = self
         cell.tagContailerView.tagData = ["PHP", "Java", "C++", "Swift", "Haskel", "Prolog", "PHP", "Java", "C++", "Swift", "Haskel", "PHP", "Java", "C++", "Swift", "Haskel", "Prolog", "PHP", "Java", "C++", "Swift", "Haskel"]
         
-        
-        // Configure the cell...
+        if indexPath.row % 2 == 1 {
+            cell.tagContailerView.showSwitchButton = false
+        }
 
         return cell
     }
@@ -48,25 +38,13 @@ class TableViewController: UITableViewController, TagContainerViewDelegate {
         return UITableViewAutomaticDimension
     }
     
-    func tagViewDidSwitch() {
-        UIView.setAnimationsEnabled(false)
-        tableView.beginUpdates()
-        tableView.endUpdates()
-        UIView.setAnimationsEnabled(true)
-    }
+    // MARK: - Tag Container View Delegate
     
-    func didDeleteCellAtIndexPath(indexPath: NSIndexPath) {
-        print(indexPath)
+    func tagContainerView(tagContainerView: TagContainerView, didSelectItemAtIndex indexPath: NSIndexPath) {
+        print("didSelectItemAtIndex: \(indexPath)")
+        
+        if indexPath.row == (tagContainerView.tagData!.count - 1) { //Click the last tag, namely AddTagButton
+            tagContainerView.tagData?.insert("new \(tagContainerView.tagData!.count)", atIndex: 0)
+        }
     }
-    
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
-        // Get the new view controller using segue.destinationViewController.
-        // Pass the selected object to the new view controller.
-    }
-    */
-
 }

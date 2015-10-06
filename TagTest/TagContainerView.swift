@@ -10,6 +10,7 @@ import UIKit
 
 class TagContainerView: UIView, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {
 
+    // MARK: - Constants
     static let tagCellHeight: CGFloat = 30.0
     static let tagCellPadding: CGFloat = 8.0
     static let tagViewInteritemSpacingSpacing: CGFloat = 8.0
@@ -18,13 +19,18 @@ class TagContainerView: UIView, UICollectionViewDataSource, UICollectionViewDele
     static let maxCollapsedTagViewHeight: CGFloat = 106.0
     static let switchButtonHeight: CGFloat = 30.0
     
+    // MARK: - Delegate
     weak var delegate: TagContainerViewDelegate?
     
+    // MARK: - Views
     private var tagView: UICollectionView!
     private var switchButton: UIButton!
     
-    var tagViewHeightConstraint: NSLayoutConstraint!
-    var switchButtonHeightConstraint: NSLayoutConstraint!
+    // MARK: View Constraints
+    private var tagViewHeightConstraint: NSLayoutConstraint!
+    private var switchButtonHeightConstraint: NSLayoutConstraint!
+    
+    // MARK: - Configurations
     
     var showAllTags = false {
         didSet {
@@ -38,6 +44,24 @@ class TagContainerView: UIView, UICollectionViewDataSource, UICollectionViewDele
             }
         }
     }
+    
+    /// Indicates wether shows the switch button or not. If false, it will hide the swith button and show all tags by default
+    var showSwitchButton = true {
+        didSet {
+            switchButton.hidden = !showSwitchButton
+            if showSwitchButton {
+                switchButtonHeightConstraint.constant = TagContainerView.switchButtonHeight
+            } else {
+                switchButtonHeightConstraint.constant = 0.0
+            }
+            //show all tags
+            if !showSwitchButton {
+                showAllTags = true
+            }
+        }
+    }
+    
+    // MARK: - Data Source
     
     var tagData: [String]? {
         didSet {
@@ -81,7 +105,7 @@ class TagContainerView: UIView, UICollectionViewDataSource, UICollectionViewDele
         tagView = UICollectionView(frame: CGRectZero, collectionViewLayout: layout)
         tagView.dataSource = self
         tagView.delegate = self
-        tagView.registerClass(TagCell.classForCoder(), forCellWithReuseIdentifier: "identifier")
+        tagView.registerClass(TagView.classForCoder(), forCellWithReuseIdentifier: "identifier")
         tagView.backgroundColor = UIColor.whiteColor()
         tagView.scrollEnabled = false
         
@@ -124,6 +148,8 @@ class TagContainerView: UIView, UICollectionViewDataSource, UICollectionViewDele
         tagView.addGestureRecognizer(recognizer)
     }
     
+    // MARK: - Collection View Data Source
+    
     func numberOfSectionsInCollectionView(collectionView: UICollectionView) -> Int {
         return 1
     }
@@ -137,40 +163,49 @@ class TagContainerView: UIView, UICollectionViewDataSource, UICollectionViewDele
     }
 
     func collectionView(collectionView: UICollectionView, cellForItemAtIndexPath indexPath: NSIndexPath) -> UICollectionViewCell {
-        let cell = collectionView.dequeueReusableCellWithReuseIdentifier("identifier", forIndexPath: indexPath) as! TagCell
+        let cell = collectionView.dequeueReusableCellWithReuseIdentifier("identifier", forIndexPath: indexPath) as! TagView
         cell.backgroundColor = UIColor.blackColor()
         cell.label.text = tagData![indexPath.item]
         return cell
     }
     
+    // MARK: - Collection View Delegate
+    
+    func collectionView(collectionView: UICollectionView, didSelectItemAtIndexPath indexPath: NSIndexPath) {
+        delegate?.tagContainerView?(self, didSelectItemAtIndex: indexPath)
+    }
+    
+    func collectionView(collectionView: UICollectionView, didDeselectItemAtIndexPath indexPath: NSIndexPath) {
+        delegate?.tagContainerView?(self, didDeselectItemAtIndex: indexPath)
+    }
+    
+    // MARK: - Event Handler
+    
     func switchTagView(sender: UIButton) {
         showAllTags = !showAllTags
-        delegate?.tagViewDidSwitch()
     }
     
     func deleteTag(sender: UILongPressGestureRecognizer) {
         if sender.state == .Began {
             let indexPath = tagView.indexPathForItemAtPoint(sender.locationInView(tagView))
             if let indexPath = indexPath {
-                delegate?.didDeleteCellAtIndexPath(indexPath)
+                delegate?.tagContainerView?(self, didDeleteCellAtIndexPath: indexPath)
             }
         }
     }
-    
-    /*
-    // Only override drawRect: if you perform custom drawing.
-    // An empty implementation adversely affects performance during animation.
-    override func drawRect(rect: CGRect) {
-        // Drawing code
-    }
-    */
 
 }
 
-protocol TagContainerViewDelegate: class {
+// MARK: - Delegate Protocol
+
+@objc protocol TagContainerViewDelegate: class {
     
-    func tagViewDidSwitch()
+    optional func tagContainerView(tagContainerView: TagContainerView, didDeleteCellAtIndexPath indexPath: NSIndexPath)
     
-    func didDeleteCellAtIndexPath(indexPath: NSIndexPath)
+    // MARK: - Item Selection Delegate
+    
+    optional func tagContainerView(tagContainerView: TagContainerView, didSelectItemAtIndex indexPath: NSIndexPath)
+    
+    optional func tagContainerView(tagContainerView: TagContainerView, didDeselectItemAtIndex indexPath: NSIndexPath)
     
 }
